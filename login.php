@@ -46,9 +46,10 @@
 </form>
 
 <script>
-$('form[name=‘login_form_main’]')
+$("form[name='login_form_main']")
   .form({
     on: 'blur',
+    inline: true,
     fields: {
       username: {
         identifier  : 'username',
