@@ -7,7 +7,8 @@ require_once "shared.php";
 
 
 
-new \Template\Page("Main Feed", $pages, $umg->current_user(), new \Template\FeedWrapper($database)).render();
+$page = new \Template\Page("Home", $pages, $umg->current_user(), new \Template\FeedWrapper(new \Lib\Feed($database)));
+$page->render();
 
 
 

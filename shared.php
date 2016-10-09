@@ -24,6 +24,6 @@
 	}
 	
 	$pages = array();
-	array_push($pages, new \Template\PageInfo("home", "index.php", "Main feed"));
+	array_push($pages, new \Template\PageInfo("home", "index.php", "Home"));
 
 ?>

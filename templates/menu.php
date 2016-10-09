@@ -23,16 +23,16 @@ class Menu extends Template {
   <div class="ui container">
 	<?php 
 		foreach ($this->pages as $page) {
-			new MenuItem($page, ($page->title == $this->title)).render();
+			$menu = new MenuItem($page, ($page->title == $this->title)); $menu->render();
 		}
 	?>
 	<div class="right menu">
 		<?php
 			if ($this->login_info) {
-				new MenuItem(new PageInfo("user", "profile.php", "Profile")).render();
-				new MenuItem(new PageInfo("exit", $self_page . "?logout=1", "Logout")).render();
+				$menu = new MenuItem(new PageInfo("user", "profile.php", "Profile")); $menu->render();
+				$menu = new MenuItem(new PageInfo("exit", $self_page . "?logout=1", "Logout")); $menu->render();
 			} else {
-				new MenuItem(new PageInfo("user", "login.php?red=" . $self_page, "Login"), true).render();
+				$menu = new MenuItem(new PageInfo("user", "login.php?red=" . $self_page, "Login"), true); $menu->render();
 			}
 		?>
 	</div>

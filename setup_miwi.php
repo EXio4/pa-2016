@@ -13,6 +13,12 @@
 									));
 							
 		$database->exec("CREATE DATABASE `$db_name`;");
+
+		$database = null;
+
+		$database = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_pwd, array(
+									PDO::ATTR_PERSISTENT => true
+								));
 								
 	} catch (PDOException $e) {
 		echo "Error connecting to database: $e\n</br>";

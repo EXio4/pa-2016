@@ -34,7 +34,7 @@ class Page extends Template {
 
 <body>
 	
-<?php new Menu($this->pages,$this->login_info).render(); ?>
+<?php $menu = new Menu($this->title,$this->pages,$this->login_info); $menu->render(); ?>
 
 <div class="ui container">
 <div class="ui raised container segment">
@@ -42,7 +42,7 @@ class Page extends Template {
 	<p class="ui"></p>
 </div>
 
-<?php $this->body->render(); ?>
+<?php $this->body_template->render(); ?>
 
 </div>
 

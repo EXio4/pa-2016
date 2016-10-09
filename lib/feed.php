@@ -54,9 +54,9 @@ class Feed {
 	public function get_items() {
 		try {
             if ($this->user) {
-                $stm = $this->db->prepare("SELECT feed_item_id,username,text,parnt FROM feeds where username = ?");
+                $stmt = $this->db->prepare("SELECT feed_item_id,username,text,parnt FROM feed where username = ?");
             } else {
-                $stm = $this->db->prepare("SELECT feed_item_id,username,text,parnt FROM feeds");
+                $stmt = $this->db->prepare("SELECT feed_item_id,username,text,parnt FROM feed");
             }
 			$arr = array();
             if ($this->user) {
@@ -65,7 +65,7 @@ class Feed {
                 $par = array();
             }
 			if ($stmt->execute($par)) {
-			  while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+			  while ($row = $stmt->fetch(\PDO::FETCH_OBJ)) {
 				array_push($arr, new FeedItem($this->db, $row->feed_item_id, $row->username, $row->text, $row->parnt));
 			  }
 			}

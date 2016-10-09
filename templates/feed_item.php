@@ -17,8 +17,8 @@ class FeedItem extends Template {
 	<div class="content">
 	<div class="summary\">
 		<div class="user">
-		 <?php echo (filter_var($this->item->username, FILTER_SANITIZE_SPECIAL_CHARS)); ?>
-		</div> - <?php echo (filter_var($this->item>-text, FILTER_SANITIZE_SPECIAL_CHARS)); ?>
+		 <?php echo (filter_var($this->item->get_username(), FILTER_SANITIZE_SPECIAL_CHARS)); ?>
+		</div> - <?php echo (filter_var($this->item->get_text(), FILTER_SANITIZE_SPECIAL_CHARS)); ?>
 	</div>
 	</div>
 </div>

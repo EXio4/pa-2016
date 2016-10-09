@@ -15,7 +15,7 @@ class FeedWrapper extends Template {
 ?>
 
 <?php
-	new Feed($feed->get_items()).render();
+	$fd = new Feed($this->feed->get_items()); $fd->render();
 ?>
 
 <?php

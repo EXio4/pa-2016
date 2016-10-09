@@ -16,8 +16,8 @@ class Feed extends Template {
 
 <div class="ui feed">
 <?php
-foreach ($this->feed as $feed_item) {
-		new FeedItem($feed_item).render();
+foreach ($this->feeds as $feed_item) {
+		$fi = new FeedItem($feed_item); $fi->render();
 }
 ?>      
 </div>
