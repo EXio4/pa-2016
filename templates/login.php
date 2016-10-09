@@ -1,26 +1,20 @@
-<?php $title = "Login";
-      include "template_header.php"; ?>
-
 <?php
+namespace Template;
 
-	$return_site = "index.php";
-	if (isset($_GET["red"])) {
-		$return_site = $_GET["red"];
-	}
-	$return_site_enc = filter_var($return_site, FILTER_SANITIZE_ENCODED);
+require_once "page_info.php";
 
-	if ((isset($_POST["username"])) && (isset($_POST["password"]))) {
-		$user = $_POST["username"];
-		$pwd  = $_POST["password"];
-		$login_error = !(\UserManagement\login($user, $pwd));
+require_once "model.php";
+
+class Login extends Template {
+	private $error;
+	public function __construct($error = false) {
+		$this->error = $error;
 	}
-	if (\UserManagement\is_logged()) {
-		redirect($return_site);
-	}
-	
-?> 
+	public function render() {
+		parent::render();
+?>
       
-<form name="login_form_main" class="ui form <?php echo ($login_error ? "error" : ""); ?>" method="POST" action="login.php?red=<?php echo $return_site_enc; ?>">
+<form name="login_form_main" class="ui form <?php echo ($this->error ? "error" : ""); ?>" method="POST" action="login.php?red=<?php echo $return_site_enc; ?>">
 	<div class="field">
 		<label>Username</label>
 		<input name="username" type="text">
@@ -31,12 +25,13 @@
 	</div>
 	<div class="field">
 		<label>Captcha</label>
+		<img class="ui small image" src="xtra/rdnimg.php">
 		<input name="captcha" type="text">
 	</div>
 	
 	<div class="ui error message">
 		<div class="header">Login Error</div>
-		<p>Invalid username or password, try again.</p>
+		<p> <?php if ($error) { echo $error; } ?> </p>
 	</div>
 
 	<button class="ui primary button">
@@ -83,4 +78,8 @@ $("form[name='login_form_main']")
 ;
 </script>
 
-<?php include "template_final.php"; ?>
+
+<?php
+	}
+}
+	
