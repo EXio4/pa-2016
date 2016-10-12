@@ -25,7 +25,7 @@ class Page extends Template {
 <html lang="en">
 
 <head>
-	<title><?php $this->title ?></title>
+	<title><?php echo $this->title; ?> - MiWi</title>
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 	<link rel="stylesheet" type="text/css" href="s-ui/semantic.min.css">
 	<script src="js/jquery.min.js"></script>
@@ -37,12 +37,17 @@ class Page extends Template {
 <?php $menu = new Menu($this->title,$this->pages,$this->login_info); $menu->render(); ?>
 
 <div class="ui container">
-<div class="ui raised container segment">
-	<h3 class="ui header">Programacion Avanzada TP3</h3>
-	<p class="ui"></p>
-</div>
 
 <?php $this->body_template->render(); ?>
+
+<div class="ui inverted footer segment">
+	<div class="three wide column">
+	<h5 class="ui inverted header">Programacion Avanzada TP3</h5>
+	</div>
+	<div class="seven wide column">
+		<p class="ui inverted">Grupo 7 / Esteban Ibraim Ruiz Moreno</p>
+	</div>
+</div>
 
 </div>
 

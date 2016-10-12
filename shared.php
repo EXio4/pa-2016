@@ -18,6 +18,7 @@
 		die();
 	}
 	$umg = new \Lib\UserManagement($database);
+	$feed = new \Lib\FeedManager($database);
 	
 	if(isset($_GET["logout"])) {
 			$umg->logout();
@@ -25,5 +26,10 @@
 	
 	$pages = array();
 	array_push($pages, new \Template\PageInfo("home", "index.php", "Home"));
+
+
+	function redirect($str) {
+			header("Location: " . $str);
+	}
 
 ?>

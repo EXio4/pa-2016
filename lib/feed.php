@@ -29,8 +29,8 @@ class FeedItem {
     
 }
 
-class Feed {
-	private $db;
+class FeedList {
+    private $db;
 	private $user; /* null represents global feed */
 	
 	public function __construct($db, $user = null) {
@@ -38,19 +38,6 @@ class Feed {
 		$this->user = $user;
 	}
 
-	public function setup() {
-		try {
-			$this->db->exec("CREATE TABLE feed(
-                                feed_item_id  INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                                username      VARCHAR(32)  NOT NULL,
-                                text          VARCHAR(256) NOT NULL,
-                                parnt         INT(64)      );");
-			echo "Created feed table\n";
-		} catch (PDOException $e) {
-			echo "Error setting up feed table ($e)";
-		}
-	}
-	
 	public function get_items() {
 		try {
             if ($this->user) {
@@ -60,7 +47,7 @@ class Feed {
             }
 			$arr = array();
             if ($this->user) {
-                $par = array($this->user);
+                $par = array($this->user->get_username());
             } else {
                 $par = array();
             }
@@ -75,17 +62,42 @@ class Feed {
 		}
 	}
 	
-    public function add_feed($user, $text, $parent = null) {
+    public function add_feed($text, $parent = null) {
         try {
             $pr = (($parent == null) ? null : $parent->get_id());
 			$stm = $this->db->prepare("INSERT INTO feed(username,text,parnt) VALUES (?, ?, ?)");
-			$stm->execute(array($user, $text, $pr));
-			return new FeedItem($this->db, $this->db->lastInsertId(), $user, $text, $pr);
+			$stm->execute(array($this->user->get_username(), $text, $pr));
+			return new FeedItem($this->db, $this->db->lastInsertId(), $this->user, $text, $pr);
 		} catch (PDOException $e) {
 		}
         return null;
     }
+	    
+}
+
+class FeedManager {
+	private $db;
 	
+	public function __construct($db) {
+		$this->db = $db;
+	}
+
+	public function setup() {
+		try {
+			$this->db->exec("CREATE TABLE feed(
+                                feed_item_id  INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                                username      VARCHAR(32)  NOT NULL,
+                                text          VARCHAR(256) NOT NULL,
+                                parnt         INT(64)      );");
+			echo "Created feed table\n";
+		} catch (PDOException $e) {
+			echo "Error setting up feed table ($e)";
+		}
+	}
+
+    public function get_feed($user = null) {
+        return new FeedList($this->db, $user);
+    }
 }
 
 ?>

@@ -29,10 +29,20 @@ class Menu extends Template {
 	<div class="right menu">
 		<?php
 			if ($this->login_info) {
-				$menu = new MenuItem(new PageInfo("user", "profile.php", "Profile")); $menu->render();
-				$menu = new MenuItem(new PageInfo("exit", $self_page . "?logout=1", "Logout")); $menu->render();
+				?>
+				<div class="ui simple dropdown item">
+						<i class="child icon"></i><?php echo $this->login_info->get_username(); ?> <i class="dropdown icon"></i>
+					<div class="menu">
+			<?php
+				$menu = new MenuItem(new PageInfo("user" , "profile.php", "Profile")); $menu->render();
+				$menu = new MenuItem(new PageInfo("settings", "settings.php", "Settings")); $menu->render();
+				$menu = new MenuItem(new PageInfo("close", $this->self_page . "?logout=1", "Logout")); $menu->render();
+			?>
+					</div>
+				</div>
+			<?php
 			} else {
-				$menu = new MenuItem(new PageInfo("user", "login.php?red=" . $self_page, "Login"), true); $menu->render();
+				$menu = new MenuItem(new PageInfo("user", "login.php?red=" . $this->self_page_enc, "Login"), true); $menu->render();
 			}
 		?>
 	</div>

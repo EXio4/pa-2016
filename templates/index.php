@@ -5,7 +5,7 @@ require_once "model.php";
 
 require_once "feed.php";
 
-class FeedWrapper extends Template {
+class Index extends Template {
 	private $feed;
 	public function __construct($feed) {
 		$this->feed = $feed;
@@ -13,6 +13,11 @@ class FeedWrapper extends Template {
 	public function render() {
 		parent::render();
 ?>
+
+
+<div class="ui raised container segment">
+	<h5 class="ui header">MiWi - Main News</h5>
+</div>
 
 <?php
 	$fd = new Feed($this->feed->get_items()); $fd->render();

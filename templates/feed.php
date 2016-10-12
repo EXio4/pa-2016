@@ -19,6 +19,11 @@ class Feed extends Template {
 foreach ($this->feeds as $feed_item) {
 		$fi = new FeedItem($feed_item); $fi->render();
 }
+if (empty($this->feeds)) {
+	?>
+		<h1 class="ui header">:( No messages</h1>
+	<?php
+}
 ?>      
 </div>
 <?php

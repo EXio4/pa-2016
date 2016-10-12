@@ -7,14 +7,15 @@ require_once "model.php";
 
 class Login extends Template {
 	private $error;
-	public function __construct($error = false) {
+	public function __construct($ret_site_enc, $error = false) {
+		$this->ret_site_enc = $ret_site_enc;
 		$this->error = $error;
 	}
 	public function render() {
 		parent::render();
 ?>
       
-<form name="login_form_main" class="ui form <?php echo ($this->error ? "error" : ""); ?>" method="POST" action="login.php?red=<?php echo $return_site_enc; ?>">
+<form name="login_form_main" class="ui form <?php echo ($this->error ? "error" : ""); ?>" method="POST" action="login.php?red=<?php echo $this->ret_site_enc; ?>">
 	<div class="field">
 		<label>Username</label>
 		<input name="username" type="text">
@@ -31,7 +32,7 @@ class Login extends Template {
 	
 	<div class="ui error message">
 		<div class="header">Login Error</div>
-		<p> <?php if ($error) { echo $error; } ?> </p>
+		<p> <?php if ($this->error) { echo $this->error; } ?> </p>
 	</div>
 
 	<button class="ui primary button">

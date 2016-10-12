@@ -34,17 +34,19 @@ class User {
 	private function get_pwd_hash() {
 		try {
 			$stm = $this->db->prepare("SELECT password_hash FROM users where username = ?");
-			if ($stm->execute($this->user)) {
-			  while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+			if ($stm->execute(array($this->user))) {
+			  while ($row = $stm->fetch(\PDO::FETCH_OBJ)) {
 				  return $row->password_hash;
 			  }
 			}
 		} catch (PDOException $e) {
 		}
-		return null;
+        return "";
 	}
 	public function check_password($password) {
-		return hash("sha512", $password) == $this->get_pwd_hash();
+        $hash_x = $this->get_pwd_hash();
+        $hash_y = hash("sha512", $password);
+		return ($hash_x == $hash_y);
 	}
 }
 
@@ -70,8 +72,8 @@ class UserManagement {
 	public function get_user($user) {
 		try {
 			$stm = $this->db->prepare("SELECT username FROM users where username = ?");
-			if ($stm->execute($user)) {
-                if ($stm->fetch(PDO::FETCH_OBJ)) {
+			if ($stm->execute(array($user))) {
+                if ($stm->fetch(\PDO::FETCH_OBJ)) {
                     return new User($this->db, $user);
                 }
 			}
@@ -102,7 +104,7 @@ class UserManagement {
 			$stm = $this->db->prepare("SELECT username FROM users where username = ?");
 			$arr = array();
 			if ($stmt->execute(array($user))) {
-			  while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+			  while ($row = $stmt->fetch(\PDO::FETCH_OBJ)) {
 				array_push($arr, new User($this->db, $row->username));
 			  }
 			}
@@ -118,7 +120,7 @@ class UserManagement {
          return null;
     }
     public function login($username, $password) {
-        if (check_login_data($username, $password)) {
+        if ($this->check_login_data($username, $password)) {
             $_SESSION["login"] = $username;
         }
     }
