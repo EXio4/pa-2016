@@ -12,7 +12,7 @@ class Menu extends Template {
 	private $login_info;
 	public function __construct($title, $pages, $login_info) {
 		$this->title = $title;
-		$this->pages = $pages;
+		$this->minfo = $pages;
 		$this->login_info = $login_info;
 	}
 	public function render() {
@@ -22,28 +22,29 @@ class Menu extends Template {
 <div class="ui attached stackable menu">
   <div class="ui container">
 	<?php 
-		foreach ($this->pages as $page) {
+		foreach ($this->minfo->pages as $page) {
 			$menu = new MenuItem($page, ($page->title == $this->title)); $menu->render();
 		}
 	?>
 	<div class="right menu">
 		<?php
-			if ($this->login_info) {
+
+			if (empty($this->minfo->right_menu->entries)) {
+				$menu = new MenuItem($this->minfo->right_menu->title, true); $menu->render();
+			} else {
 				?>
 				<div class="ui simple dropdown item">
-						<i class="child icon"></i><?php echo $this->login_info->get_username(); ?> <i class="dropdown icon"></i>
+						<i class="child icon"></i><?php echo $this->minfo->right_menu->title->title ?> <i class="dropdown icon"></i>
 					<div class="menu">
-			<?php
-				$menu = new MenuItem(new PageInfo("user" , "profile.php", "Profile")); $menu->render();
-				$menu = new MenuItem(new PageInfo("settings", "settings.php", "Settings")); $menu->render();
-				$menu = new MenuItem(new PageInfo("close", $this->self_page . "?logout=1", "Logout")); $menu->render();
-			?>
+						<?php	
+						foreach ($this->minfo->right_menu->entries as $page) {
+							$menu = new MenuItem($page, ($page->title == $this->title)); $menu->render();
+						}
+						?>
 					</div>
 				</div>
-			<?php
-			} else {
-				$menu = new MenuItem(new PageInfo("user", "login.php?red=" . $this->self_page_enc, "Login"), true); $menu->render();
-			}
+				<?php
+			}				
 		?>
 	</div>
   </div>

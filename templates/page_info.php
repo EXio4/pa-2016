@@ -13,4 +13,22 @@ class PageInfo {
 	}
 }
 
+class NestedMenu {
+	public $title; 
+	public $entries;
+	public function __construct($n, $en) {
+		$this->title = $n;
+		$this->entries = $en;
+	}
+}
+
+class MenuBox {
+	public $pages;
+	public $right_menu;
+	public function __construct($pages, $right_menu) {
+		$this->pages = $pages;
+		$this->right_menu = $right_menu;
+	}
+}
+
 ?>

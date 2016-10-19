@@ -16,7 +16,7 @@ class MenuItem extends Template {
 		parent::render();
 ?>
 
-<a class="item" href="<?php echo $this->page->href ?>">
+<a class="<?php if ($this->important) echo "active";?> item" href="<?php echo $this->page->href ?>">
         <i class="<?php echo $this->page->icon ?> icon"></i><?php echo $this->page->title ?>
 </a>
 

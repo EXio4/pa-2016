@@ -23,7 +23,7 @@ if (isset($_POST["username"]) && isset($_POST["password"]) && isset($_POST["capt
 	if ($cap != $_SESSION['rand_code']) {
 		$error = "Invalid captcha, try again.";
 	} else {
-}	
+	}	
 }
 if ($umg->current_user()) {
 	redirect($return_site);
