@@ -8,9 +8,11 @@ require_once "feed.php";
 class Index extends Template {
 	private $feed;
 	private $own;
-	public function __construct($own, $feed) {
+	private $page;
+	public function __construct($own, $feed,$page) {
 		$this->feed = $feed;
 		$this->own = $own;
+		$this->page = $page;
 	}
 	public function render() {
 		parent::render();
@@ -22,7 +24,7 @@ class Index extends Template {
 </div>
 
 <?php
-	$fd = new Feed($own, $this->feed->get_items()); $fd->render();
+	$fd = new Feed($this->own, $this->feed->get_items($this->page), $this->page); $fd->render();
 ?>
 
 <?php

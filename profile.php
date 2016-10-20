@@ -19,7 +19,7 @@ if ($usr == null) {
 }
 
 $page = new \Template\Page("Profile", $pages, $umg->current_user(),
-              new \Template\Profile($usr, $feed->get_feed($usr)));
+              new \Template\Profile($umg->current_user(), $feed->get_feed($usr)));
 $page->render();
 
 ?>

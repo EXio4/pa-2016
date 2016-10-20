@@ -91,7 +91,7 @@ class FeedList {
             $pr = (($parent == null) ? null : $parent->get_id());
 			$stm = $this->db->prepare("INSERT INTO feed(username,text,parnt) VALUES (?, ?, ?)");
 			$stm->execute(array($this->user->get_username(), $text, $pr));
-			return new FeedItem($this->db, $this->db->lastInsertId(), $this->user, $text, $pr);
+			return new FeedItem($this->db, $this->db->lastInsertId(), $this->user->get_username(), $text, $pr);
 		} catch (PDOException $e) {
 		}
         return null;

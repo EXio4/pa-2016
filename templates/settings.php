@@ -4,7 +4,9 @@ namespace Template;
 require_once "model.php";
 
 class Settings extends Template {
-	public function __construct() {
+	private $msg;
+	public function __construct($msg) {
+		$this->msg = $msg;
 	}
 	public function render() {
 		parent::render();
@@ -12,8 +14,11 @@ class Settings extends Template {
 
 
 <div class="ui segments">
+	<div class="ui purple segment">
+		<h1 class="ui header">Settings</h1>
+	</div>
 	<div class="ui red segment">
-		<form method="post" action="settings.php" name="pwd_change">
+		<form class="ui form <?php if ($this->msg) echo "error";?>"method="post" action="settings.php" name="pwd_change">
 			<div class="ui action input">
 				<input name="pwd_old" type="password" placeholder="Old password...">
 			</div>
@@ -26,13 +31,9 @@ class Settings extends Template {
 			<button class="ui primary submit button" type="submit">
 				Change Password
 			</button>
-		</form>
-	</div>
-	<div class="ui red segment">
-		<form method="post" action="delete_acc.php" name="pwd_change">
-			<button class="ui submit red button" type="submit">
-				Delete account
-			</button>
+			<div class="ui error message">
+				<div class="header"><?php echo $this->msg ?></div>
+			</div>
 		</form>
 	</div>
 </div>
