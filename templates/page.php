@@ -40,12 +40,16 @@ class Page extends Template {
 
 <?php $this->body_template->render(); ?>
 
+
 <div class="ui inverted footer segment">
-	<div class="three wide column">
+	
+	<a class="ui purple right ribbon blue label" href="http://github.com/EXio4/pa-2016">
+		<i class="terminal icon"></i>
+		Code
+	</a>
+	<div>
 	<h5 class="ui inverted header">Programacion Avanzada TP3</h5>
-	</div>
-	<div class="seven wide column">
-		<p class="ui inverted">Grupo 7 / Esteban Ibraim Ruiz Moreno</p>
+	<p class="ui inverted">Grupo 7 / Esteban Ibraim Ruiz Moreno</p>
 	</div>
 </div>
 

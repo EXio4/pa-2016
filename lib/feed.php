@@ -24,10 +24,8 @@ class FeedItem {
         return $this->text;
     }
     public function kill($curr_usr) {
-        if ($curr_usr->username == $this->username) return;
+        if ($curr_usr->get_username() != $this->username) return;
         try {
-			$parnt = $this->parnt;
-            $pr = (($parnt == null) ? null : $parnt->get_id());
 			$stm = $this->db->prepare("DELETE FROM feed where feed_item_id = ?");
 			$stm->execute(array($this->item_id));
 			return;
@@ -122,6 +120,7 @@ class FeedManager {
     public function get_feed($user = null) {
         return new FeedList($this->db, $user);
     }
+
     public function get_id($xid) {
         try {
             $stmt = $this->db->prepare("SELECT feed_item_id,username,text,parnt FROM feed where feed_item_id = ?");

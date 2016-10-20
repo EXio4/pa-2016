@@ -12,12 +12,13 @@ if ($usr == null) {
 
 $message = "";
 
-if (isset($_GET["pwd_old"]) && isset($_GET["pwd_curr"]) && isset($_GET["pwd_curr_2"])) {
+if (isset($_POST["pwd_old"]) && isset($_POST["pwd_curr"]) && isset($_POST["pwd_curr_2"])) {
 	
-	if ($usr->check_password($_GET["pwd_old"]) {
-		if ($_GET["pwd_curr"] === $_GET["pwd_curr_2"]) {
-			if ($_GET["pwd_curr"] != "") {
-				$usr->set_password($_GET["pwd_curr"]);
+	if ($usr->check_password($_POST["pwd_old"])) {
+		if ($_POST["pwd_curr"] === $_POST["pwd_curr_2"]) {
+			if ($_POST["pwd_curr"] != "") {
+				$usr->set_password($_POST["pwd_curr"]);
+				$message = "Changed password correctly";
 			} else {
 				$message = "New password can't be empty";
 			}
@@ -27,7 +28,6 @@ if (isset($_GET["pwd_old"]) && isset($_GET["pwd_curr"]) && isset($_GET["pwd_curr
 	} else {
 		$message = "Invalid password";
 	}
-	
 	
 }
 

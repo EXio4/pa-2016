@@ -7,9 +7,11 @@ require_once "feed.php";
 
 class Profile extends Template {
 	private $user;
+	private $curr_user;
 	private $feed;
-	public function __construct($user,$feed) {
+	public function __construct($user,$curr_user, $feed) {
 		$this->user = $user;
+		$this->curr_user = $curr_user;
 		$this->feed = $feed;
 	}
 	public function render() {
@@ -22,7 +24,7 @@ class Profile extends Template {
 
 
 <?php
-	$fd = new Feed($this->user, $this->feed->get_items()); $fd->render();
+	$fd = new Feed($this->curr_user, $this->feed->get_items()); $fd->render();
 ?>
 
 

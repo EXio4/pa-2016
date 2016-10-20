@@ -1,7 +1,7 @@
 <?php
 
 require_once "templates/page.php";
-require_once "templates/login.php";
+require_once "templates/register.php";
 
 require_once "shared.php";
 
@@ -18,11 +18,14 @@ if (isset($_POST["username"]) && isset($_POST["password"]) && isset($_POST["capt
 	$user = $_POST["username"];
 	$pwd  = $_POST["password"];
 	$cap  = $_POST["captcha"];
-
+	
 	if ($cap != $_SESSION['rand_code']) {
 		$error = "Invalid captcha, try again.";
 	} else {
-		$error = $umg->login($user, $pwd) == null ? "Invalid username or password, try again" : false;
+		$error = $umg->add_user($user, $pwd) == null ? "Error creating user, maybe it already exists?" : false;
+		if ($error === false) {
+			redirect("index.php");
+		}
 	}	
 }
 if ($umg->current_user()) {
@@ -30,7 +33,7 @@ if ($umg->current_user()) {
 }
 
 
-$page = new \Template\Page("Login", $pages, $umg->current_user(), new \Template\Login($return_site_enc, $error));
+$page = new \Template\Page("Register", $pages, $umg->current_user(), new \Template\Register($return_site_enc, $error));
 $page->render();
 
 

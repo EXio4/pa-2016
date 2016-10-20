@@ -91,6 +91,7 @@ class UserManagement {
 	}
 	public function add_user($user, $password, $rank = 0) {
 		try {
+			if ($this->get_user($user) != null) return null;
 			$stm = $this->db->prepare("INSERT INTO users (username, password_hash, rank) VALUES (?, ?, ?)");
 			$password_hash = hash("sha512", $password);
 			$stm->execute(array($user, $password_hash, $rank));
